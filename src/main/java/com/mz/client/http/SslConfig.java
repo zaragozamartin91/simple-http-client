@@ -1,4 +1,4 @@
-package com.mz.client.rest;
+package com.mz.client.http;
 
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;

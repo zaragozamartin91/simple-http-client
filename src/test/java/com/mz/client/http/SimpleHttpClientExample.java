@@ -1,4 +1,4 @@
-package com.mz.client.rest;
+package com.mz.client.http;
 
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
@@ -19,31 +19,30 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 
-public class RestClientExample {
+public class SimpleHttpClientExample {
     public static void main(String[] args) throws Exception {
         System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "true");
         System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
         System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
         System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
 
-//        new RestClientExample().executeBumeranPost();
-//        new RestClientExample().executeGoogleGet();
-//        new RestClientExample().executeWProxyAndSsl();
-        new RestClientExample().executeWithRestClientWithProxyAndSsl();
+//        new SimpleHttpClientExample().executeGoogleGet();
+//        new SimpleHttpClientExample().executeWProxyAndSsl();
+        new SimpleHttpClientExample().executeWithSimpleHttpClientWithProxyAndSsl();
     }
 
     private void executeGoogleGet() throws IOException {
         String url = "http://www.google.com";
-        RestResponse restResponse = RestClient.newGet(url).execute();
+        SimpleHttpResponse simpleHttpResponse = SimpleHttpClient.newGet(url).execute();
 
-        System.out.println(restResponse.getBody().get());
+        System.out.println(simpleHttpResponse.getBody().get());
     }
 
-    private void executeWithRestClientWithProxyAndSsl() {
+    private void executeWithSimpleHttpClientWithProxyAndSsl() {
         String uri = "https://httpbin.org";
         String proxyUrl = "http://192.168.2.10:8080";
 
-        RestResponse response = RestClient.newGet(uri)
+        SimpleHttpResponse response = SimpleHttpClient.newGet(uri)
 //                .withProxy(proxyUrl)
                 .withSslConfig(SslConfig.create(new File("cert/mykeystore.jks"), "changeit"))
                 .execute();
