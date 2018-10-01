@@ -13,3 +13,13 @@ Example of GET request with proxy settings and CERT / SSL config:
 
         System.out.println(response);
 
+Example of POST request with application/json data type:
+
+        SimpleHttpResponse response = SimpleHttpClient.newPost("http://someurl.com")
+                .withBasicAuth("username" , "password")
+                .withHeader("Accept" , "application/json")
+                .withBody( "{ \"id\":1 , \"value\":\"foo\" }" )
+                .withContentType("application/json")
+                .execute();
+
+        System.out.println(response.getBody());
