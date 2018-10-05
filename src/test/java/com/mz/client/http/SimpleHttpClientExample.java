@@ -35,7 +35,7 @@ public class SimpleHttpClientExample {
         String url = "http://www.google.com";
         SimpleHttpResponse simpleHttpResponse = SimpleHttpClient.newGet(url).execute();
 
-        System.out.println(simpleHttpResponse.getBody().get());
+        System.out.println(simpleHttpResponse.getBody().value());
     }
 
     private void executeWithSimpleHttpClientWithProxyAndSsl() {
@@ -43,7 +43,7 @@ public class SimpleHttpClientExample {
         String proxyUrl = "http://192.168.2.10:8080";
 
         SimpleHttpResponse response = SimpleHttpClient.newGet(uri)
-//                .withProxy(proxyUrl)
+                .withProxy(proxyUrl)
                 .withSslConfig(SslConfig.create(new File("cert/mykeystore.jks"), "changeit"))
                 .execute();
 

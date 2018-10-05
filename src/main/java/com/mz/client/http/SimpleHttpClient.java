@@ -1,5 +1,6 @@
 package com.mz.client.http;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpHost;
@@ -13,8 +14,6 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import java.util.Base64;
-import java.util.Optional;
 
 /**
  * Simple Http client for http requests.
@@ -81,7 +80,7 @@ public class SimpleHttpClient {
      */
     public SimpleHttpClient withBasicAuth(String username, String password) {
         String rawCred = String.format("%s:%s", username, password);
-        String credentials = Base64.getEncoder().encodeToString(rawCred.getBytes(UTF_8));
+        String credentials = Base64.encodeBase64String(rawCred.getBytes(UTF_8));
         return withHeader("Authorization", "Basic " + credentials);
     }
 
@@ -97,7 +96,7 @@ public class SimpleHttpClient {
                 HttpEntityEnclosingRequest httpEntityEnclosingRequest = (HttpEntityEnclosingRequest) this.httpRequest;
                 httpEntityEnclosingRequest.setEntity(new StringEntity(body));
             } catch (UnsupportedEncodingException e) {
-                throw new IllegalArgumentException("Body de request: " + body + " invalido", e);
+                throw new IllegalArgumentException("SimpleHttpBody de request: " + body + " invalido", e);
             }
         } else {
             throw new IllegalStateException("No es posible asignar un body a este tipo de request");
@@ -117,7 +116,7 @@ public class SimpleHttpClient {
             this.sslConfig = sslConfig;
             return this;
         } catch (Exception e) {
-            throw new HttpClientException("Error al asignar configuracion de SSL", e);
+            throw new SimpleHttpClientException("Error al asignar configuracion de SSL", e);
         }
     }
 
@@ -142,11 +141,11 @@ public class SimpleHttpClient {
      * @return Response.
      */
     public SimpleHttpResponse execute() {
-        try (CloseableHttpClient httpClient = Optional.ofNullable(sslConfig).isPresent() ?
+        try (CloseableHttpClient httpClient = sslConfig != null ?
                 HttpClients.custom().setSSLSocketFactory(sslConfig.getSslsf()).build() :
                 HttpClients.createDefault()) {
 
-            if (Optional.ofNullable(proxy).isPresent()) {
+            if (proxy != null) {
                 RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
                 ((HttpRequestBase) httpRequest).setConfig(config);
             }
@@ -157,7 +156,7 @@ public class SimpleHttpClient {
 
             return new SimpleHttpResponse(httpResponse, body);
         } catch (IOException e) {
-            throw new HttpClientException("Ocurrio un error al ejecutar http request", e);
+            throw new SimpleHttpClientException("Ocurrio un error al ejecutar http request", e);
         }
     }
 }

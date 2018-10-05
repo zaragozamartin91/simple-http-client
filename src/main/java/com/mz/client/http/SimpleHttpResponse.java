@@ -3,18 +3,17 @@ package com.mz.client.http;
 import org.apache.http.HttpResponse;
 
 import java.util.Locale;
-import java.util.Optional;
 
 /**
  * Simple http response representation.
  */
 public class SimpleHttpResponse {
     private HttpResponse httpResponse;
-    private String body;
+    private SimpleHttpBody body;
 
     SimpleHttpResponse(HttpResponse httpResponse, String body) {
         this.httpResponse = httpResponse;
-        this.body = body;
+        this.body = new SimpleHttpBody(body);
     }
 
     /**
@@ -59,8 +58,8 @@ public class SimpleHttpResponse {
      *
      * @return Response body (if present).
      */
-    public Optional<String> getBody() {
-        return Optional.ofNullable(body);
+    public SimpleHttpBody getBody() {
+        return body;
     }
 
     /**
