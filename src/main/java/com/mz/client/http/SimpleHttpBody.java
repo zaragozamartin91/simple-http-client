@@ -15,6 +15,10 @@ public class SimpleHttpBody {
         return body;
     }
 
+    public String get() {
+        return body;
+    }
+
     @Override public String toString() {
         return "SimpleHttpBody{" +
                 "body='" + body + '\'' +
