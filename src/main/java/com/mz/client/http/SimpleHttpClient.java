@@ -50,6 +50,26 @@ public class SimpleHttpClient {
     }
 
     /**
+     * Create a Http Put request.
+     *
+     * @param url Request url.
+     * @return New PUT request.
+     */
+    public static SimpleHttpClient newPut(String url) {
+        return new SimpleHttpClient(new HttpPut(url));
+    }
+
+    /**
+     * Create a Http Delete request.
+     *
+     * @param url Request url.
+     * @return New DELETE request.
+     */
+    public static SimpleHttpClient newDelete(String url) {
+        return new SimpleHttpClient(new HttpDelete(url));
+    }
+
+    /**
      * Assign a header to the request.
      *
      * @param headerName  Name.
