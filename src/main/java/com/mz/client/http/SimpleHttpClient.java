@@ -6,6 +6,7 @@ import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -111,13 +112,30 @@ public class SimpleHttpClient {
      * @return this.
      */
     public SimpleHttpClient withBody(String body) {
+        return this.withBody(body, ContentType.DEFAULT_TEXT);
+    }
+
+    /**
+     * Assign a json body to the request.
+     *
+     * @param body String body.
+     * @return this.
+     */
+    public SimpleHttpClient withJsonBody(String body) {
+        return this.withBody(body, ContentType.APPLICATION_JSON);
+    }
+
+    /**
+     * Assign a body to the request.
+     *
+     * @param body        String body.
+     * @param contentType Content type of request.
+     * @return this.
+     */
+    public SimpleHttpClient withBody(String body, ContentType contentType) {
         if (httpRequest instanceof HttpEntityEnclosingRequest) {
-            try {
-                HttpEntityEnclosingRequest httpEntityEnclosingRequest = (HttpEntityEnclosingRequest) this.httpRequest;
-                httpEntityEnclosingRequest.setEntity(new StringEntity(body));
-            } catch (UnsupportedEncodingException e) {
-                throw new IllegalArgumentException("SimpleHttpBody de request: " + body + " invalido", e);
-            }
+            HttpEntityEnclosingRequest httpEntityEnclosingRequest = (HttpEntityEnclosingRequest) this.httpRequest;
+            httpEntityEnclosingRequest.setEntity(new StringEntity(body, contentType));
         } else {
             throw new IllegalStateException("No es posible asignar un body a este tipo de request");
         }
