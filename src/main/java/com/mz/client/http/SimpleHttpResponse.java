@@ -63,13 +63,27 @@ public class SimpleHttpResponse {
     }
 
     /**
-     * Check if the response is OK (status code within 200 and 300)
+     * Returns true if the response is OK (status code within 200 and 300)
      *
      * @return True if status code &gt;= 200 and &lt; 300.
      */
     public boolean isOk() {
         int statusCode = this.getStatusCode();
         return statusCode >= 200 && statusCode < 300;
+    }
+
+    public boolean is404() {
+        return this.getStatusCode() == 404;
+    }
+
+    public boolean is4xx() {
+        int statusCode = this.getStatusCode();
+        return statusCode >= 400 && statusCode < 500;
+    }
+
+    public boolean is5xx() {
+        int statusCode = this.getStatusCode();
+        return statusCode >= 500 && statusCode < 600;
     }
 
     @Override

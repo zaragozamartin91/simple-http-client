@@ -83,13 +83,31 @@ public class SimpleHttpClient {
     }
 
     /**
+     * Assign 'application/json' as 'Accept' header.
+     *
+     * @return this.
+     */
+    public SimpleHttpClient withJsonAcceptHeader() {
+        return this.withHeader("Accept", "application/json");
+    }
+
+    /**
      * Assign a content-type header.
      *
      * @param contentType Value (e.g. application/json)
      * @return this.
      */
     public SimpleHttpClient withContentType(String contentType) {
-        return withHeader("content-type", contentType);
+        return withContentType(contentType);
+    }
+
+    /**
+     * Assign 'application/json' content-type header.
+     *
+     * @return this.
+     */
+    public SimpleHttpClient withJsonContentType() {
+        return this.withContentType("application/json");
     }
 
     /**
