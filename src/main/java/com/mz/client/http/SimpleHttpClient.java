@@ -98,7 +98,7 @@ public class SimpleHttpClient {
      * @return this.
      */
     public SimpleHttpClient withContentType(String contentType) {
-        return withContentType(contentType);
+        return withHeader("content-type", contentType);
     }
 
     /**
