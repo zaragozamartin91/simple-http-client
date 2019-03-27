@@ -54,12 +54,21 @@ public class SimpleHttpResponse {
     }
 
     /**
-     * Get the response body as a string.
+     * Get the response body.
      *
-     * @return Response body (if present).
+     * @return Response body.
      */
     public SimpleHttpBody getBody() {
         return body;
+    }
+
+    /**
+     * Get the response body as a String.
+     *
+     * @return Response body value if present. Null if absent.
+     */
+    public String getBodyValue() {
+        return body.value();
     }
 
     /**
