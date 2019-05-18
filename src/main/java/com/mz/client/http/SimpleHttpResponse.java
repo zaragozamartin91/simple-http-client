@@ -68,7 +68,8 @@ public class SimpleHttpResponse {
      * @return Response body value if present. Null if absent.
      */
     public String getBodyValue() {
-        return body.value();
+        SimpleHttpBody b = getBody();
+        return b == null ? null : b.value();
     }
 
     /**
