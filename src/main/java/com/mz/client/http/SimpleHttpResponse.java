@@ -95,6 +95,10 @@ public class SimpleHttpResponse {
         return statusCode >= 500 && statusCode < 600;
     }
 
+    public StatusCode matchStatusCode() {
+        return StatusCode.fromCode(this.getStatusCode());
+    }
+
     @Override
     public String toString() {
         return "SimpleHttpResponse{" +
