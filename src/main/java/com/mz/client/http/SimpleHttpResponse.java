@@ -96,6 +96,11 @@ public class SimpleHttpResponse {
         return statusCode >= 500 && statusCode < 600;
     }
 
+    /**
+     * Obtains specific and general response codes ideal for switch matching
+     *
+     * @return specific and general response codes ideal for switch matching
+     */
     public StatusCode matchStatusCode() {
         return StatusCode.fromCode(this.getStatusCode());
     }
