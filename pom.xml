@@ -67,6 +67,7 @@
 
   <modules>
     <module>simple-http-client</module>
-    <module>simple-http-plugin</module>
+    <module>simple-http-maven-plugin</module>
+    <module>plugin-tester</module>
   </modules>
 </project>
